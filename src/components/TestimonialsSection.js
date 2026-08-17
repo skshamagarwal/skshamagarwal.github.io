@@ -13,12 +13,12 @@ const TestimonialSectionStyles = styled.div`
   .testimonial__wrapper {
     position: relative;
     max-width: 700px;
-    height: max-content;
     margin: 0 auto;
   }
   .testimonial__info {
     width: 100%;
-    flex-grow: 1;
+    height: 330px;
+    box-sizing: border-box;
     padding: 3rem;
     background-color: var(--deep-dark);
     border-radius: 12px;
@@ -108,10 +108,10 @@ export default function TestimonialsSection() {
     <TestimonialSectionStyles>
       <div className="container">
         <SectionTitle
-          subheading="reviews recieved from work places"
+          subheading="reviews from people I've worked with"
           heading="Testimonials"
         />
-        <div className="testimonial__wrapper min-h-[290px]">
+        <div className="testimonial__wrapper">
           <SwitchTransition component={null}>
             <CSSTransition key={activeSlide.id} timeout={300} classNames="fade">
               <div className="testimonial__info">

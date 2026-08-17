@@ -7,25 +7,40 @@ import DownloadCV from "../components/DownloadCV";
 
 const AboutStyles = styled.div`
   padding: 16rem 0 10rem 0;
+  background: linear-gradient(180deg, transparent 0%, rgba(95, 140, 109, 0.04) 50%, transparent 100%);
   .top-section {
     display: flex;
     align-items: center;
     justify-content: center;
     gap: 2rem;
+    animation: fadeIn 0.8s ease-out;
     .left {
       flex: 3;
       .about__subheading {
         font-size: 2.2rem;
         margin-bottom: 2rem;
+        color: var(--primary);
+        font-weight: 600;
+        text-transform: uppercase;
+        letter-spacing: 1px;
         span {
-          background-color: var(--deep-dark);
-          padding: 0.5rem 1rem;
-          border-radius: 8px;
+          background: linear-gradient(135deg, var(--primary) 0%, var(--accent) 100%);
+          padding: 0.8rem 1.5rem;
+          border-radius: 12px;
+          color: var(--white);
+          display: inline-block;
+          margin-top: 0.5rem;
+          box-shadow: 0 4px 15px rgba(95, 140, 109, 0.3);
         }
       }
       .about__heading {
         font-size: 3.6rem;
         margin-bottom: 3rem;
+        background: linear-gradient(135deg, var(--white) 0%, var(--gray-1) 100%);
+        -webkit-background-clip: text;
+        -webkit-text-fill-color: transparent;
+        background-clip: text;
+        font-weight: 900;
       }
       .about__info {
         margin-bottom: 5rem;
@@ -33,6 +48,8 @@ const AboutStyles = styled.div`
         p {
           max-width: 100%;
           font-size: 1.5rem;
+          color: var(--gray-1);
+          line-height: 1.8;
         }
       }
     }
@@ -40,7 +57,16 @@ const AboutStyles = styled.div`
       margin-right: 20px;
       flex: 1.5;
       img {
-        border: 2px solid var(--gray-1);
+        border: 2px solid var(--primary);
+        border-radius: 16px;
+        box-shadow: 0 10px 40px rgba(95, 140, 109, 0.3);
+        transition: all 0.4s ease;
+        
+        &:hover {
+          transform: scale(1.05);
+          box-shadow: 0 15px 50px rgba(95, 140, 109, 0.4);
+          border-color: var(--secondary);
+        }
       }
     }
   }
@@ -64,6 +90,7 @@ const AboutStyles = styled.div`
         }
         .about__info {
           margin-bottom: 3rem;
+          padding-right: 0;
         }
       }
     }
@@ -79,27 +106,21 @@ export default function About() {
             <p className="about__subheading">
               Hi, I am <span>Saksham Agarwal</span>
             </p>
-            <h2 className="about__heading">
-              A Geek who thinks Coding is a Superpower
-            </h2>
+            <h1 className="about__heading">
+              Passionate Software Engineer & Tech Innovator
+            </h1>
             <div className="about__info">
               <PText>
-                I am from Mount Abu, a hill station in the Aravalli range of
-                Rajasthan, and am currently based in Mumbai, working as a
-                Software Development Engineer at Juspay for the past two years.
+                I'm a Software Development Engineer at JUSPAY, based in Mumbai, specializing in building high-performance fintech solutions. With expertise in full-stack development and a proven track record of delivering scalable applications, I'm passionate about solving complex problems and creating elegant code.
                 <br />
-                <br />I developed interest in coding because I was pretty
-                average in other subjects during my schooling. Back then, to
-                start coding was my only option and now - not getting to explore
-                this field is my greatest fear. I love learning & working with
-                new technologies, and possess interest in Competetive
-                Programming as well as contributing to Open Source.
+                <br />
+                Beyond my professional work, I'm deeply invested in competitive programming, open-source contributions, and mentoring. I believe technology is a superpower that can transform ideas into reality. My journey in tech has taught me that continuous learning and innovation are keys to success in this ever-evolving field.
               </PText>
             </div>
             <DownloadCV />
           </div>
           <div className="right">
-            <img loading="lazy" src={Img} alt="My Img" />
+            <img loading="lazy" src={Img} alt="Saksham Agarwal" />
           </div>
         </div>
 

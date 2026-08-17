@@ -9,8 +9,9 @@ import { BsArrowDown } from "react-icons/bs";
 import DownloadCV from "../components/DownloadCV";
 import { FaGlobeAmericas } from "react-icons/fa";
 import TestimonialsSection from "../components/TestimonialsSection";
-import Typewriter from "../components/Typewriter";
-import { useEffect, useState } from "react";
+import ExploreLinks from "../components/ExploreLinks";
+import useTypewriter from "../hooks/useTypewriter";
+import { useState } from "react";
 
 const HomeStyles = styled.div`
   .hero {
@@ -22,35 +23,124 @@ const HomeStyles = styled.div`
     align-items: center;
     justify-content: center;
     position: relative;
+    background: linear-gradient(135deg, rgba(95, 140, 109, 0.12) 0%, rgba(247, 244, 234, 0.08) 100%);
+    overflow: hidden;
+  }
+
+  .hero::before {
+    content: '';
+    position: absolute;
+    width: 500px;
+    height: 500px;
+    background: radial-gradient(circle, rgba(95, 140, 109, 0.25) 0%, transparent 70%);
+    border-radius: 50%;
+    top: -150px;
+    right: -150px;
+    animation: float 8s ease-in-out infinite;
+    filter: blur(40px);
+  }
+
+  .hero::after {
+    content: '';
+    position: absolute;
+    width: 400px;
+    height: 400px;
+    background: radial-gradient(circle, rgba(247, 244, 234, 0.15) 0%, transparent 70%);
+    border-radius: 50%;
+    bottom: -100px;
+    left: -100px;
+    animation: float 10s ease-in-out infinite reverse;
+    filter: blur(40px);
+  }
+
+  @keyframes float {
+    0%, 100% { transform: translateY(0px) translateX(0px); }
+    50% { transform: translateY(30px) translateX(10px); }
+  }
+
+  @keyframes caretBlink {
+    0%, 100% { opacity: 1; }
+    50% { opacity: 0; }
+  }
+
+  @keyframes popScale {
+    0% { opacity: 0; transform: scale(0.85) translateY(10px); }
+    60% { opacity: 1; transform: scale(1.03) translateY(0); }
+    100% { opacity: 1; transform: scale(1) translateY(0); }
+  }
+
+  .typewriter-cursor {
+    display: inline-block;
+    width: 3px;
+    height: 0.85em;
+    margin-left: 5px;
+    background: currentColor;
+    vertical-align: -0.1em;
+    animation: caretBlink 0.9s steps(1) infinite;
+  }
+
+  .typewriter-cursor--done {
+    animation: none;
+    opacity: 0;
+    transition: opacity 0.4s ease;
   }
 
   .hero__heading {
     font-size: 2rem;
     position: relative;
-    span {
+    z-index: 2;
+
+    .hero__greeting {
       display: inline-block;
       width: 100%;
+      color: var(--gray-1);
     }
+
     .hero__name {
+      display: inline-block;
       font-size: 7rem;
       font-family: "Montserrat SemiBold";
-      color: var(--white);
-      text-shadow: 2px 2px #00000094;
+      background: var(--gradient-3);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      background-clip: text;
+      text-shadow: none;
+      letter-spacing: 3px;
+      font-weight: 900;
+
+      .typewriter-cursor {
+        -webkit-text-fill-color: var(--secondary);
+        background: var(--secondary);
+      }
     }
   }
 
   .hero__info {
     margin-top: 5rem;
+    position: relative;
+    z-index: 2;
+    animation: popScale 0.6s cubic-bezier(0.34, 1.56, 0.64, 1) both;
     p {
-      text-shadow: 1.5px 1.5px #00000094;
+      text-shadow: none;
       margin-bottom: 5rem;
+      font-size: 1.5rem;
+      max-width: 900px;
+      margin-left: auto;
+      margin-right: auto;
+      color: var(--gray-1);
     }
     .buttons {
       width: 100%;
       display: flex;
       justify-content: center;
+      flex-wrap: wrap;
       a {
         margin: 1rem;
+        opacity: 0;
+        animation: slideInUp 0.5s ease-out 0.25s both;
+      }
+      a:nth-child(2) {
+        animation-delay: 0.4s;
       }
     }
   }
@@ -60,13 +150,36 @@ const HomeStyles = styled.div`
     justify-content: center;
     align-items: center;
     margin-top: -8rem;
+    position: relative;
+    z-index: 2;
+    cursor: pointer;
+    width: fit-content;
+    margin-left: auto;
+    margin-right: auto;
+    padding: 1rem;
+
     svg {
       width: 5rem;
+      color: var(--primary);
+      animation: bounce 1.6s ease-in-out infinite;
+      transition: color 0.3s ease;
     }
+
+    &:hover svg {
+      color: var(--secondary);
+    }
+  }
+
+  .explore__section {
+    padding: 10rem 0 5rem;
+    position: relative;
   }
 
   .services__section {
     padding: 10rem 0;
+    position: relative;
+    background: linear-gradient(180deg, transparent 0%, rgba(95, 140, 109, 0.05) 50%, transparent 100%);
+
     .services__items {
       display: flex;
       gap: 10rem;
@@ -78,16 +191,30 @@ const HomeStyles = styled.div`
   .contact__banner {
     padding: 10rem 0;
     .contact__wrapper {
-      background-color: var(--deep-dark);
-      border-radius: 12px;
+      background: linear-gradient(135deg, var(--deep-dark) 0%, var(--gray-2) 100%);
+      border: 1px solid rgba(95, 140, 109, 0.3);
+      border-radius: 20px;
       padding: 5rem 0rem;
       text-align: center;
+      box-shadow: 0 8px 32px rgba(95, 140, 109, 0.1);
+      transition: all 0.4s ease;
+      
+      &:hover {
+        border-color: rgba(95, 140, 109, 0.6);
+        box-shadow: 0 12px 48px rgba(95, 140, 109, 0.2);
+      }
+      
       p {
         font-size: 1.8rem;
+        color: var(--gray-1);
       }
       .contact__heading {
         font-size: 4rem;
         margin-bottom: 5rem;
+        background: linear-gradient(135deg, var(--primary) 0%, var(--secondary) 100%);
+        -webkit-background-clip: text;
+        -webkit-text-fill-color: transparent;
+        background-clip: text;
       }
     }
   }
@@ -111,6 +238,10 @@ const HomeStyles = styled.div`
       margin-top: 0;
     }
 
+    .explore__section {
+      padding: 5rem 0 3rem;
+    }
+
     .services__section {
       .services__items {
         flex-direction: column;
@@ -128,34 +259,44 @@ const HomeStyles = styled.div`
 `;
 
 export default function Home() {
-  const [showDiv, setShowDiv] = useState(false);
+  const [stage, setStage] = useState("greeting");
 
-  useEffect(() => {
-    const timer = setTimeout(() => {
-      setShowDiv(true);
-    }, 2000);
+  const greeting = useTypewriter("Hello, this is", 70, () =>
+    setStage((s) => (s === "greeting" ? "name" : s))
+  );
+  const name = useTypewriter(
+    stage === "name" || stage === "info" ? "Saksham Agarwal" : "",
+    85,
+    () => setStage("info")
+  );
 
-    return () => clearTimeout(timer); // Cleanup the timer
-  }, []);
   return (
     <HomeStyles>
       <div className="hero">
         <div className="container">
           <h1 className="hero__heading">
-            <span>
-              <Typewriter text="Hello, This is" speed={100} />
+            <span className="hero__greeting">
+              {greeting}
+              <span
+                className={`typewriter-cursor ${stage !== "greeting" ? "typewriter-cursor--done" : ""
+                  }`}
+              />
             </span>
-            {showDiv && (
-              <span className="hero__name animate-fade-in">
-                Saksham Agarwal
+            {stage !== "greeting" && (
+              <span className="hero__name">
+                {name}
+                <span
+                  className={`typewriter-cursor ${stage === "info" ? "typewriter-cursor--done" : ""
+                    }`}
+                />
               </span>
             )}
           </h1>
-          {showDiv && (
-            <div className="hero__info animate-fade-in">
+          {stage === "info" && (
+            <div className="hero__info">
               <PText>
                 {
-                  "I am a passionate Software Developer with a background in Computer Science, eager to collaborate and create impactful solutions. I thrive on solving complex problems and bringing innovative concepts to life. With every line of code, I aim to push boundaries, learn, and explore new possibilities."
+                  "I'm a Software Development Engineer at Juspay, building high-performance fintech solutions. I thrive on solving complex problems and turning ideas into impactful, well-crafted software. With every line of code, I aim to push boundaries, learn, and explore new possibilities."
                 }
               </PText>
               <div className="buttons">
@@ -167,8 +308,35 @@ export default function Home() {
         </div>
       </div>
 
-      <div className="scroll__icon">
+      <div
+        className="scroll__icon"
+        role="button"
+        tabIndex={0}
+        aria-label="Scroll to next section"
+        onClick={() =>
+          document
+            .querySelector(".explore__section")
+            ?.scrollIntoView({ behavior: "smooth" })
+        }
+        onKeyDown={(e) => {
+          if (e.key === "Enter" || e.key === " ") {
+            document
+              .querySelector(".explore__section")
+              ?.scrollIntoView({ behavior: "smooth" });
+          }
+        }}
+      >
         <BsArrowDown />
+      </div>
+
+      <div className="explore__section">
+        <div className="container">
+          <SectionTitle
+            heading="Explore"
+            subheading="jump straight to what you're looking for..."
+          ></SectionTitle>
+          <ExploreLinks />
+        </div>
       </div>
 
       <div className="services__section">
@@ -198,7 +366,7 @@ export default function Home() {
       </div>
 
       <TestimonialsSection />
-      
+
       <div className="contact__banner">
         <div className="container">
           <div className="contact__wrapper">

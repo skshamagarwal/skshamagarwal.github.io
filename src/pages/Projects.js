@@ -7,6 +7,7 @@ import projectList from "../assets/data/projects";
 const ProjectStyles = styled.div`
   padding-top: 10rem;
   min-height: 100vh;
+  background: linear-gradient(180deg, transparent 0%, rgba(95, 140, 109, 0.05) 50%, transparent 100%);
   .error {
     padding: 10rem;
     text-align: center;
@@ -17,19 +18,38 @@ const ProjectStyles = styled.div`
     display: flex;
     gap: 1rem;
     flex-wrap: wrap;
+    animation: fadeIn 0.8s ease-out;
     .btn {
-      background-color: var(--deep-dark);
+      background: linear-gradient(135deg, var(--gray-2) 0%, var(--deep-dark) 100%);
+      border: 1px solid rgba(95, 140, 109, 0.2);
       padding: 1rem 2rem;
-      transition: 1s ease;
+      border-radius: 12px;
+      transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
       cursor: pointer;
       p {
         text-transform: uppercase;
         font-size: 1.3rem;
+        color: var(--gray-1);
+        font-weight: 600;
+        letter-spacing: 0.5px;
       }
       &:hover {
-        background-color: var(--gray-1);
+        background: linear-gradient(135deg, var(--primary) 0%, var(--accent) 100%);
+        border-color: var(--primary);
         p {
-          color: var(--deep-dark);
+          color: var(--white);
+          font-weight: bold;
+        }
+        box-shadow: 0 8px 20px rgba(95, 140, 109, 0.3);
+        transform: translateY(-3px);
+      }
+
+      &.active {
+        background: linear-gradient(135deg, var(--primary) 0%, var(--accent) 100%);
+        border-color: var(--primary);
+        box-shadow: 0 8px 20px rgba(95, 140, 109, 0.3);
+        p {
+          color: var(--white);
           font-weight: bold;
         }
       }
@@ -37,10 +57,11 @@ const ProjectStyles = styled.div`
   }
   .card-container {
     margin: 3rem 0rem 3rem 0rem;
-  display: flex;
-  flex-wrap: wrap;
-  justify-content: center;
-}
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    animation: fadeIn 1s ease-out;
+  }
 `;
 
 export class Projects extends Component {
@@ -49,10 +70,12 @@ export class Projects extends Component {
 
     this.state = {
       projList: projectList,
+      activeFilter: "All",
     };
   }
 
   BtnClick = (name) => {
+    this.setState({ activeFilter: name });
     if (name === "All") {
       this.setState({ projList: projectList });
     } else {
@@ -91,23 +114,25 @@ export class Projects extends Component {
   render() {
     return (
       <ProjectStyles>
-        <SectionTitle heading="PROJECTS" subheading="some of my works" />
-          <div className="filters">
-            {this.filter_names.map((name, index) => (
-              <button
-                onClick={() => this.BtnClick(name)}
-                key={index}
-                className="btn rounded-md"
-              >
-                <p>{name}</p>
-              </button>
-            ))}
-          </div>
-          <div className="card-container">
-            {this.state.projList.map((project, index) => (
-              <ProjectCard key={index} project={project} />
-            ))}
-          </div>
+        <SectionTitle heading="Projects" subheading="a selection of things I've built" headingLevel={1} />
+        <div className="filters">
+          {this.filter_names.map((name, index) => (
+            <button
+              onClick={() => this.BtnClick(name)}
+              key={index}
+              className={`btn rounded-md ${
+                this.state.activeFilter === name ? "active" : ""
+              }`}
+            >
+              <p>{name}</p>
+            </button>
+          ))}
+        </div>
+        <div className="card-container">
+          {this.state.projList.map((project, index) => (
+            <ProjectCard key={index} project={project} />
+          ))}
+        </div>
       </ProjectStyles>
     );
   }

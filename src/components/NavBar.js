@@ -1,182 +1,70 @@
-import React, { useState } from "react";
-import { NavLink } from "react-router-dom";
+import React, { useState, useEffect } from "react";
+import { NavLink, useLocation } from "react-router-dom";
 import styled from "styled-components";
-import { MdMenu, MdClose } from "react-icons/md";
 
-const NavBarStyles = styled.div`
-  position: absolute;
+const NavBarStyles = styled.nav`
+  position: fixed;
   z-index: 100;
   top: 0;
   left: 0;
   width: 100%;
-  background: var(--dark-bg);
-  
-  .navIcon {
-    display: none;
-    outline: none;
-    position: absolute;
-    margin: 3rem;
-    top: 0;
-    right: 0;
-    height: 4rem;
-    cursor: pointer;
-    transition: 0.5s ease;
-    z-index: 10;
-    * {
-      pointer-events: none;
-    }
-    &:hover {
-      background-color: var(--deep-dark);
-    }
-  }
+  background: linear-gradient(180deg, rgba(24, 42, 34, 0.95) 0%, rgba(24, 42, 34, 0.8) 100%);
+  backdrop-filter: blur(10px);
+  border-bottom: 1px solid rgba(95, 140, 109, 0.1);
+  transition: transform 0.3s ease, opacity 0.3s ease;
+  transform: ${(props) => (props.visible ? "translateY(0)" : "translateY(-100%)")};
+  opacity: ${(props) => (props.visible ? 1 : 0)};
+  pointer-events: ${(props) => (props.visible ? "auto" : "none")};
 
   .wrapper {
-    position: absolute;
-    padding: 2rem 2rem;
+    padding: 2rem 3rem;
     display: flex;
     width: 100%;
-    justify-content: space-between;
+    justify-content: flex-start;
     align-items: center;
 
     .logo {
       p {
+        display: inline;
         font-size: 1.8rem;
         letter-spacing: 2px;
         font-family: "LilitaOne Regular";
+        background: linear-gradient(135deg, var(--primary) 0%, var(--secondary) 100%);
+        -webkit-background-clip: text;
+        -webkit-text-fill-color: transparent;
+        background-clip: text;
       }
-    }
-    .menu {
-      ul {
-        max-width: 1200px;
-        margin: 0 auto;
-        text-align: center;
-
-        li {
-          display: inline-block;
-          border-radius: 8px;
-          transition: 0.5s ease background-color;
-
-          &:hover {
-            background-color: var(--deep-dark);
-          }
-
-          a {
-            display: inline-block;
-            font-family: "RobotoMono Regular";
-            margin: 0 0.5em;
-            padding: 1rem 1rem;
-            font-size: 1.8rem;
-            letter-spacing: 2px;
-            color: var(--gray-1);
-            outline: none;
-          }
-
-          .active {
-            color: var(--white);
-          }
-        }
-      }
-    }
-  }
-  @media only screen and (max-width: 768px) {
-    padding: 0;
-    .navIcon {
-      display: block;
-    }
-    .hide-item {
-      transform: translateY(calc(-100% - var(--top)));
-    }
-    .wrapper {
-      position: absolute;
-      background-color: var(--deep-dark);
-      flex-direction: column;
-      height: 97.5vh;
-      width: 100vw;
-      justify-content: space-evenly;
-      --top: 1rem;
-      transition: 0.3s ease transform;
-      top: var(--top);
-
-      .logo {
-        p {
-          font-size: 3rem;
-        }
-      }
-      .menu {
-        ul {
-          li {
-            display: block;
-            margin-bottom: 2rem;
-            a {
-              font-size: 3rem;
-            }
-          }
-        }
+      p + p {
+        margin-left: 0.6rem;
       }
     }
   }
 `;
 
 export default function NavBar() {
-  const [showNav, setShowNav] = useState(false);
+  const { pathname } = useLocation();
+  const [scrolled, setScrolled] = useState(window.scrollY > 80);
+
+  useEffect(() => {
+    const handleScroll = () => setScrolled(window.scrollY > 80);
+    window.addEventListener("scroll", handleScroll);
+    return () => window.removeEventListener("scroll", handleScroll);
+  }, []);
+
+  useEffect(() => {
+    setScrolled(window.scrollY > 80);
+  }, [pathname]);
+
+  const visible = pathname !== "/" || scrolled;
+
   return (
-    <NavBarStyles>
-      <div className="navIcon"
-        onClick={() => setShowNav(!showNav)}
-        role="button">
-        {
-          !showNav
-            ? <MdMenu />
-            : <MdClose />
-        }
-      </div>
-      <div className={!showNav ? 'wrapper hide-item' : 'wrapper'}>
+    <NavBarStyles visible={visible}>
+      <div className="wrapper">
         <div className="logo">
           <NavLink to="/">
             <p>SAKSHAM</p>
             <p>AGARWAL</p>
           </NavLink>
-        </div>
-        <div className="menu">
-          <ul>
-            <li>
-              <NavLink to="/"
-                onClick={() => setShowNav(!showNav)}
-                role="button">
-                HOME
-              </NavLink>
-            </li>
-            <li>
-              <NavLink to="/about"
-                onClick={() => setShowNav(!showNav)}
-                role="button">
-                ABOUT</NavLink>
-            </li>
-            <li>
-              <NavLink to="/projects"
-                onClick={() => setShowNav(!showNav)}
-                role="button">
-                PROJECTS</NavLink>
-            </li>
-            <li>
-              <NavLink to="/experience"
-                onClick={() => setShowNav(!showNav)}
-                role="button">
-                EXPERIENCE</NavLink>
-            </li>
-            {/* <li>
-              <NavLink to="/certifications"
-                onClick={() => setShowNav(!showNav)}
-                role="button">
-                CERTIFICATIONS</NavLink>
-            </li> */}
-            <li>
-              <NavLink to="/contact"
-                onClick={() => setShowNav(!showNav)}
-                role="button">
-                CONTACT</NavLink>
-            </li>
-          </ul>
         </div>
       </div>
     </NavBarStyles>

@@ -9,13 +9,24 @@ import PortfolioImg from '../images/portfolio.JPG'
 import ResultGenImg from '../images/result_generator.png'
 import RFDTImg from '../images/rfdt.png'
 import TodoImg from '../images/todo_app.JPG'
+import GridlentImg from '../images/gridlent.png'
 
 const projectList = [
   {
     id: uuidv4(),
+    name: 'Gridlent',
+    desc:
+      'A B2B contract hiring platform connecting global businesses with trusted vendors for structured, transparent talent acquisition — handling contracts, invoicing, and compliance end-to-end.',
+    img: GridlentImg,
+    tech: ['react', 'javascript', 'nodejs'],
+    liveLink: 'https://sourcefy-kyzvcscqh-shyam-kulkarnis-projects.vercel.app/home',
+    githubLink: 'https://github.com/skshamagarwal/Gridlent'
+  },
+  {
+    id: uuidv4(),
     name: 'PredixDB',
     desc:
-      'Online platform that assists users to keep track media watched, currently watching, or planning to watch next. It even delivers personalized recommendations for each individual.',
+      'An online platform that helps users track media they\'ve watched, are currently watching, or plan to watch next — complete with personalized recommendations for each user.',
     img: PredixImg,
     tech: ['django', 'html css', 'javascript', 'ai ml', 'python'],
     liveLink: 'https://predixdb.herokuapp.com/',
@@ -25,7 +36,7 @@ const projectList = [
     id: uuidv4(),
     name: 'Jobs Scraper',
     desc:
-      'Meta Search for Jobs, Vacancies and Internships and showing it all at a single platform. Developed while working with Frsh Tech Pvt Ltd',
+      'A meta search engine that aggregates jobs, vacancies, and internships from multiple sources into a single platform. Built during my time at Frsh Technologies.',
     img: JobScraperImg,
     tech: ['javascript', 'nodejs'],
     liveLink: 'https://frshr.in/jobs~result.html?LatestJobs-Result',
@@ -35,7 +46,7 @@ const projectList = [
     id: uuidv4(),
     name: 'Web Portfolio',
     desc:
-      'My Personal Portfolio, showing all necessary details for an Computer Science Student seeking for career opportunities and extend reach. ',
+      'This personal portfolio — showcasing my projects, experience, and skills to a wider audience.',
     img: PortfolioImg,
     tech: ['html css', 'javascript', 'react', 'nodejs'],
     liveLink: 'https://skshamagarwal.github.io/portfolio/',
@@ -45,7 +56,7 @@ const projectList = [
     id: uuidv4(),
     name: 'ML from Scratch',
     desc:
-      'Implementation of Machine Learning Models - Decision Tree and Random Forest right from Scratch in Python without using any ML frameworks.',
+      'Decision Tree and Random Forest models implemented from scratch in Python, without relying on any ML frameworks.',
     img: RFDTImg,
     tech: ['ai ml', 'python'],
     liveLink: 'https://github.com/skshamagarwal/ML_From_Scratch/blob/master/DecisionTree.ipynb',
@@ -55,7 +66,7 @@ const projectList = [
     id: uuidv4(),
     name: 'MEDCARE',
     desc:
-      'Mobile Application for Consulting Doctors, keeping track of Health Checkups and even mark important Dates & Appointments... All in one Applcation for user\'s daily Health Care Routine.',
+      'Mobile application for consulting doctors, tracking health checkups, and marking important dates and appointments — an all-in-one companion for your daily healthcare routine.',
     img: MedCareImg,
     tech: ['flutter', 'dart'],
     liveLink: '',
@@ -65,7 +76,7 @@ const projectList = [
     id: uuidv4(),
     name: 'HealthCare CAP',
     desc:
-      'Cardiovascular Ailment Prediction - an awesome Heart Attack Prediction application using Machine Learning Techniques!',
+      'A Cardiovascular Ailment Prediction app that estimates heart attack risk using machine learning techniques.',
     img: CAPImg,
     tech: ['django', 'html css', 'javascript', 'ai ml', 'python'],
     liveLink: 'https://mycap.herokuapp.com/',
@@ -75,7 +86,7 @@ const projectList = [
     id: uuidv4(),
     name: 'Image Detection',
     desc:
-      'Machine Learning Model that detect objects in an image using VGG Transfer Learning. It uses CNN Technique to identify and train upon the dataset.',
+      'A machine learning model that detects objects in images using VGG transfer learning, trained on a CNN-based architecture.',
     img: ImgDetectionImg,
     tech: ['ai ml', 'python'],
     liveLink: 'https://github.com/skshamagarwal/Reverse-Image-CNN/blob/main/VGG16%20Model%20Training.ipynb',
@@ -85,7 +96,7 @@ const projectList = [
     id: uuidv4(),
     name: 'Email BOT',
     desc:
-      'Python Script that automates the process of sending emails manually. The bot accepts your voice commands and sends or copies email to clipboard on the user\'s behalf.',
+      'A Python script that automates sending emails via voice command — it either sends the email directly or copies it to the clipboard on your behalf.',
     img: EmailBotImg,
     tech: ['python'],
     liveLink: '',
@@ -95,7 +106,7 @@ const projectList = [
     id: uuidv4(),
     name: 'TODO App',
     desc:
-      'My TODO application to manage all life crises. Add Tasks you have to accomplish, mark pending or finshed even delete if needed. Simple Solution to stay productive.',
+      'A simple, no-frills TODO app to stay on top of daily tasks — add what needs doing, mark items pending or finished, and delete them when you\'re done.',
     img: TodoImg,
     tech: ['react', 'nodejs'],
     liveLink: '',
@@ -105,7 +116,7 @@ const projectList = [
     id: uuidv4(),
     name: 'Result Generator',
     desc:
-      'Python Script that automates the process of generating result / report cards for each student from the details stored in csv / .xlsx.',
+      'A Python script that automates generating report cards for each student from data stored in a CSV or Excel file.',
     img: ResultGenImg,
     tech: ['python'],
     liveLink: '',

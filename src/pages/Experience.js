@@ -7,6 +7,7 @@ import VolList from "../assets/data/volunteer";
 const ExpStyles = styled.div`
   padding-top: 10rem;
   min-height: 100vh;
+  background: linear-gradient(180deg, transparent 0%, rgba(95, 140, 109, 0.05) 50%, transparent 100%);
 
   .section__title {
     padding: 5rem 0;
@@ -27,10 +28,20 @@ const ExpStyles = styled.div`
 
         li {
           color: var(--white);
-          background-color: var(--deep-dark);
+          background: linear-gradient(135deg, var(--gray-2) 0%, var(--deep-dark) 100%);
+          border: 1px solid rgba(95, 140, 109, 0.2);
           padding: 30px;
-          border-radius: 10px;
+          border-radius: 15px;
           margin-bottom: 20px;
+          transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+          box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
+
+          &:hover {
+            transform: translateY(-5px);
+            border-color: rgba(95, 140, 109, 0.5);
+            box-shadow: 0 12px 30px rgba(95, 140, 109, 0.2);
+            background: linear-gradient(135deg, rgba(95, 140, 109, 0.1) 0%, rgba(247, 244, 234, 0.05) 100%);
+          }
 
           &:last-child {
             margin-bottom: 0;
@@ -39,26 +50,38 @@ const ExpStyles = styled.div`
           .timeline__content {
             .period {
               font-size: 13px;
-              font-weight: 300;
+              font-weight: 600;
               margin-bottom: 10px;
               letter-spacing: 2px;
+              color: var(--primary);
+              text-transform: uppercase;
             }
 
             .position {
               font-size: 25px;
-              font-weight: 500;
+              font-weight: 700;
               line-height: 30px;
               margin-bottom: 10px;
+              background: linear-gradient(135deg, var(--primary) 0%, var(--secondary) 100%);
+              -webkit-background-clip: text;
+              -webkit-text-fill-color: transparent;
+              background-clip: text;
             }
+            
             .compName {
               margin-bottom: 2rem;
               letter-spacing: 2px;
               font-size: 12px;
+              color: var(--primary-light);
+              font-weight: 600;
+              text-transform: uppercase;
             }
+            
             p {
               font-size: 16px;
               line-height: 30px;
-              font-weight: 300;
+              font-weight: 400;
+              color: var(--gray-1);
             }
           }
         }
@@ -72,10 +95,10 @@ const ExpStyles = styled.div`
         content: "";
         position: absolute;
         height: 100%;
-        width: 2px;
+        width: 3px;
         left: 50%;
         transform: translateX(-50%);
-        background-color: var(--gray-1);
+        background: linear-gradient(180deg, var(--primary) 0%, var(--secondary) 50%, var(--accent) 100%);
       }
 
       ul {
@@ -140,8 +163,9 @@ export default function Experience() {
     <ExpStyles>
       <div className="section__title">
         <SectionTitle
-          heading="EXPERIENCE"
-          subheading="places I have worked at"
+          heading="Experience"
+          subheading="companies I've worked with"
+          headingLevel={1}
         />
       </div>
       <div className="container">
@@ -149,11 +173,11 @@ export default function Experience() {
           <div className="timeline">
             <ul>
               {ExpList.map((exp) => (
-                <li>
+                <li key={exp.name + exp.duration}>
                   <div className="timeline__content">
-                    <h2 className="period">{exp.duration}</h2>
-                    <h1 className="position">{exp.position}</h1>
-                    <h2 className="compName">{exp.name}</h2>
+                    <p className="period">{exp.duration}</p>
+                    <h2 className="position">{exp.position}</h2>
+                    <p className="compName">{exp.name}</p>
                     <p>{exp.desc}</p>
                   </div>
                 </li>
@@ -164,19 +188,19 @@ export default function Experience() {
 
         <div className="section__title">
           <SectionTitle
-            heading="VOLUNTEER ROLES"
-            subheading="positions I have volunteered"
+            heading="Volunteer Roles"
+            subheading="positions I've volunteered for"
           />
         </div>
         <div className="timeline__container">
           <div className="timeline">
             <ul>
               {VolList.map((vol) => (
-                <li>
+                <li key={vol.name + vol.duration}>
                   <div className="timeline__content">
-                    <h2 className="period">{vol.duration}</h2>
-                    <h1 className="position">{vol.position}</h1>
-                    <h2 className="compName">{vol.name}</h2>
+                    <p className="period">{vol.duration}</p>
+                    <h2 className="position">{vol.position}</h2>
+                    <p className="compName">{vol.name}</p>
                     <p>{vol.desc}</p>
                   </div>
                 </li>
